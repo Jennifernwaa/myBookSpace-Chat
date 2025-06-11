@@ -5,8 +5,23 @@ const socketIO = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server);
+const io = socketIO(server, {
+  cors: {
+    origin: 'https://get-nerdy-book-web.vercel.app',
+    methods: ['GET', 'POST']
+  }
+});
+
 const PORT = process.env.PORT || 3700;
+
+const cors = require('cors');
+
+app.use(cors({
+  origin: ['https://get-nerdy-book-web.vercel.app'], // ✅ Replace with your actual Vercel site
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 
 const users = {}; // { username: socket.id }
 
